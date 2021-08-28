@@ -5,3 +5,4 @@ templates/resume_template/
 .idea/
 **/__pycache__
 .vscode
+.static/admin
