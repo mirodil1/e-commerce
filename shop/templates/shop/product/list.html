@@ -1,0 +1,158 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% comment %} {% block title %}
+    {% if category %}{{category.name}}{% else %}Products{% endif %}
+{% endblock %} {% endcomment %}
+
+{% comment %} {% block content %}
+    <div class="container bootdey">
+        <div class="col-md-3">
+            <section class="panel">
+                <div class="panel-body">
+                    <input type="text" placeholder="Keyword Search" class="form-control"/>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    Category
+                </header>
+                <div class="panel-body">
+                    <ul class="nav prod-cat">
+                        <li {% if not category %}class="active"{% endif %}>
+                            <a href="{% url "shop:product_list" %}"><i class="fa fa-angle-right"></i> All</a>
+                        </li>
+                        {% for c in categories %}
+                            <li {% if category.slug == c.slug %}class="active"{% endif %}>
+                                <a href="{{ c.get_absolute_url }}"><i class="fa fa-angle-right">{{ c.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    Price Range
+                </header>
+                <div class="panel-body sliders">
+                    <div id="slider-range" class="slider"></div>
+                    <div class="slider-info">
+                        <span id="slider-range-amount"></span>
+                    </div>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    Filter
+                </header>
+                <div class="panel-body">
+                    <form role="form product-form">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select class="form-control hasCustomSelect" style="-webkit-appearance: menulist-button; width: 231px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
+                                <option>Wallmart</option>
+                                <option>Catseye</option>
+                                <option>Moonsoon</option>
+                                <option>Textmart</option>
+                            </select>
+                            <span class="customSelect form-control" style="display: inline-block;"><span class="customSelectInner" style="width: 209px; display: inline-block;">Wallmart</span></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <select class="form-control hasCustomSelect" style="-webkit-appearance: menulist-button; width: 231px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
+                                <option>White</option>
+                                <option>Black</option>
+                                <option>Red</option>
+                                <option>Green</option>
+                            </select>
+                            <span class="customSelect form-control" style="display: inline-block;"><span class="customSelectInner" style="width: 209px; display: inline-block;">White</span></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control hasCustomSelect" style="-webkit-appearance: menulist-button; width: 231px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
+                                <option>Small</option>
+                                <option>Medium</option>￼
+
+                                <option>Large</option>
+                                <option>Extra Large</option>
+                            </select>
+                            <span class="customSelect form-control" style="display: inline-block;"><span class="customSelectInner" style="width: 209px; display: inline-block;">Small</span></span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Filter</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-9">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="pull-right">
+                        <ul class="pagination pagination-sm pro-page-list">
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="row product-list">
+                <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+                {% for product in products  %}
+                    <div class="col-md-4">
+                        <section class="panel">
+                            <div class="pro-img-box">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="" />
+                                <a href="#" class="adtocart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                            </div>
+
+                            <div class="panel-body text-center">
+                                <h4>
+                                    <a href="{{ product.get_absolute_url }}" class="pro-title">
+                                        {{ product.name }}
+                                    </a>
+                                </h4>
+                                <p class="price">${{product.price}}</p>
+                            </div>
+                        </section>
+                    </div>
+                {% endfor %}    
+            </div>
+        </div>
+    </div>
+{% endblock %}    {% endcomment %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li {% if not category %}class="selected"{% endif %}>
+        <a href="{% url "shop:product_list" %}">All</a>
+      </li>
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div id="main" class="product-list">
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    {% for product in products %}
+      <div class="item">
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+        <br>
+        ${{ product.price }}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+env/
+db.sqlite3
+templates/resume_template/
+**/migrations
+.idea/
+**/__pycache__
+.vscode
