@@ -124,15 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-
-# STATICFILES_DIRS = [
-#     f"{BASE_DIR}/static",
-#     'e-commerce/static/'
-# ]
-
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 MEDIA_URL = "/media/"
@@ -144,9 +142,9 @@ MEDIA_ROOT = [
 
 # Braintree settings
 
-# BRAINTREE_MERCHANT_ID = 'merchant_id'
-# BRAINTREE_PUBLIC_KEY = 'public-key'
-# BRAINTREE_PRIVATE_KEY = 'private-key'
+BRAINTREE_MERCHANT_ID = 'ny6dcz487p6n6nsb'
+BRAINTREE_PUBLIC_KEY = 'ywztkskdyw2zv472'
+BRAINTREE_PRIVATE_KEY = '462859a0b8ef902a1ac74da7fee7178e'
 
 BRAINTREE_CONF = braintree.Configuration(
     braintree.Environment.Sandbox,
