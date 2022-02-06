@@ -138,8 +138,6 @@ MEDIA_ROOT = [
     f"{BASE_DIR}/media"
 ]
 
-
-
 # Braintree settings
 
 BRAINTREE_MERCHANT_ID = 'ny6dcz487p6n6nsb'
@@ -153,7 +151,6 @@ BRAINTREE_CONF = braintree.Configuration(
     BRAINTREE_PRIVATE_KEY,
 
 )
-
 
 # session
 
